@@ -1,6 +1,6 @@
 module github.com/afifurrohman-id/kits-cloud-final-project
 
-go 1.21.4
+go 1.20
 
 require (
 	github.com/andybalholm/brotli v1.0.6 // indirect

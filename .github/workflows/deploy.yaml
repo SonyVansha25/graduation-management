@@ -15,10 +15,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Set up Go
         uses: actions/setup-go@v5
-      -
-        name: Run Releaser
+
+      - name: Run Releaser
         uses: goreleaser/goreleaser-action@v5
         with:
           args: release --clean

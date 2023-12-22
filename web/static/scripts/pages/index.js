@@ -20,7 +20,7 @@ form.addEventListener('submit', async evt => {
 })
 
 
-document.getElementById('del-all-btn').addEventListener('click', async evt => {
+document.getElementById('del-all-btn') && document.getElementById('del-all-btn').addEventListener('click', async evt => {
     if (confirm('Are you sure you want to delete all students?')) {
         const res = await doReq('DELETE', null)
         if (res.status === 204) {

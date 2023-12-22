@@ -15,10 +15,18 @@
     <main class="px-4">
             <form action="/{{.student.ID}}" class="grid justify-items-center gap-4">
                 {{template "components/input" .}}
+
+                {{ if .student.Passed }}
+                    <p class="text-green-500 font-bold">Status: Passed</p>
+                {{ else }}
+                    <p class="text-red-500 font-bold">Status: Failed</p>
+                {{ end }}
+
                 <p>Created At: {{.student.CreatedAt}}</p>
                 {{ if .student.UpdatedAt }}
                     <p>Updated At: {{.student.UpdatedAt}}</p>
                 {{ end }}
+
                 <button type="submit" class="btn btn-primary">Update</button>
                 <button id="del-btn" class="btn btn-error">Delete</button>
             </form>

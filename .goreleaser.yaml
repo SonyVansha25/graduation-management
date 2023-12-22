@@ -1,8 +1,8 @@
 builds:
   - goarch:
       - amd64
-  - ldflags:
+    ldflags:
       - -s
       - -w
-  - env:
+    env:
       - CGO_ENABLED=0

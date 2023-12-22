@@ -3,13 +3,20 @@ name: release
 on:
   pull_request:
   push:
+    tags:
+      - v*
 
 permissions:
   contents: write
 
 jobs:
   goreleaser:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ubuntu-latest
+    env:
+      CGO_ENABLED: 0
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,9 +29,21 @@ jobs:
       - name: Tidy
         run: go mod tidy
 
-      - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v5
+      - name: Build Windows
+        if: matrix.os == windows-latest
+        run: go build -o graduation-management-win-x86_64.exe -ldflags="-s -w"  main.go
+
+      - name: Build Linux
+        if: matrix.os == ubuntu-latest
+        run: go build -o graduation-management-linux-x86_64 -ldflags="-s -w"  main.go
+
+      - name: Build MacOS
+        if: matrix.os == macos-latest
+        run: go build -o graduation-management-macos-x86_64 -ldflags="-s -w"  main.go
+
+      - name: Upload Artifact
+        uses: ncipollo/release-action@v1
         with:
-          args: release --clean
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: graduation-management*
+          body: |
+            # New Release

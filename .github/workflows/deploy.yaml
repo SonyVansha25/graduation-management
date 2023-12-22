@@ -1,48 +1,26 @@
-name: release
+name: build and release
 
 on:
   pull_request:
   push:
-#    tags:
-#      - v*
 
 permissions:
   contents: write
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+  release:
     runs-on: ubuntu-latest
-    env:
-      CGO_ENABLED: 0
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Set up Go
         uses: actions/setup-go@v5
-
-      - name: Tidy
-        run: go mod tidy
-
-      - name: Build Windows
-        if: matrix.os == 'windows-latest'
-        run: go build -o graduation-management-win-x86_64.exe -ldflags="-s -w"  main.go
-
-      - name: Build Linux
-        if: matrix.os == 'ubuntu-latest'
-        run: go build -o graduation-management-linux-x86_64 -ldflags="-s -w"  main.go
-
-      - name: Build MacOS
-        if: matrix.os == 'macos-latest'
-        run: go build -o graduation-management-macos-x86_64 -ldflags="-s -w"  main.go
-
-      - uses: actions/upload-artifact@v4
+      -
+        name: Run Releaser
+        uses: goreleaser/goreleaser-action@v5
         with:
-          path: graduation-management*
-
-          if-no-files-found: error
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

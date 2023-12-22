@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{template "components/meta" .}}
+    <meta name="description" content="Student Detail">
+    <title>Details {{.student.Name}}</title>
+    <script src="/public/scripts/pages/details.js" type="module"></script>
+</head>
+<body>
+
+    <header class="py-14">
+        <h1 class="text-center text-2xl font-bold">Student Details</h1>
+    </header>
+
+    <main class="px-4">
+            <form action="/{{.student.ID}}" class="grid justify-items-center gap-4">
+                {{template "components/input" .}}
+                <p>Created At: {{.student.CreatedAt}}</p>
+                {{ if .student.UpdatedAt }}
+                    <p>Updated At: {{.student.UpdatedAt}}</p>
+                {{ end }}
+                <button type="submit" class="btn btn-primary">Update</button>
+                <button id="del-btn" class="btn btn-error">Delete</button>
+            </form>
+
+            <div class="flex w-max gap-14">
+                <a href="/" class="btn btn-primary">Back</a>
+            </div>
+    </main>
+
+</body>
+</html>

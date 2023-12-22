@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{template "components/meta" .}}
+
+    <meta name="description" content="Student Graduation Management">
+    <script src="/public/scripts/pages/index.js" type="module"></script>
+    <title>Graduation Management</title>
+</head>
+<body>
+    <header class="hero py-64 bg-base-200">
+        <div class="text-center hero-content">
+            <div class="max-w-screen">
+                <h1 class="mb-5 sm:text-6xl text-3xl font-bold">
+                    Graduation Management
+                </h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex gap-y-14 flex-col py-28 items-center">
+        <details  class="cursor-pointer">
+            <summary>
+                Add Student
+            </summary>
+            <form action="/" method="POST" class="grid justify-items-center">
+                {{template "components/input" .}}
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </details>
+
+        <ul class="flex justify-evenly flex-wrap gap-4 border-2 border-slate-200/10 w-full rounded-lg p-4">
+            {{$len := len .students}}
+            {{ if eq $len 0 }}
+                <h1 class="text-2xl text-center">No Students</h1>
+            {{ else }}
+                {{ range $index, $student := .students }}
+                    <li class="card shadow-xl border-2 border-primary p-2">
+                        <div class="card-body">
+                            <h1 class="card-title">{{ $student.Name }}</h1>
+                            <p>Final Grade: {{ $student.FinalGrade }}</p>
+                            <p>Cohort: {{ $student.SchoolCohortOf }}</p>
+                            {{ if $student.Passed }}
+                                <p class="text-green-500">Passed</p>
+                            {{ else }}
+                                <p class="text-red-500">Failed</p>
+                            {{ end }}
+                        </div>
+                        <a href="/{{$student.ID}}" class="self-center btn btn-primary mb-4">Details</a>
+                    </li>
+                {{ end }}
+            {{end}}
+        </ul>
+
+        {{ if gt $len 0 }}
+        <button id="del-all-btn" class="btn btn-outline btn-error w-max">Delete All Student</button>
+        {{ end }}
+    </main>
+</body>
+</html>

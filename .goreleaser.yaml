@@ -6,3 +6,9 @@ builds:
       - -w
     env:
       - CGO_ENABLED=0
+archives:
+  - files:
+      - LICENSE
+      - README.md
+      - src: web/*
+        dst: web

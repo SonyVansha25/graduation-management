@@ -42,6 +42,7 @@ jobs:
         run: go build -o graduation-management-macos-x86_64 -ldflags="-s -w"  main.go
 
       - name: Upload Artifact
+        if: matrix.os == 'ubuntu-latest'
         uses: ncipollo/release-action@v1
         with:
           artifacts: graduation-management*

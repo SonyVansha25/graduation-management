@@ -10,3 +10,7 @@ func formatDate(date int64) string {
 	return strings.Split(dateWithDot, ".")[0]
 
 }
+
+func verifyPassingGrade(grade int) bool {
+	return grade >= 70
+}

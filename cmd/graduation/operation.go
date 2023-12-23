@@ -74,7 +74,3 @@ func DeleteAllStudent(ctx *fiber.Ctx) error {
 
 	return ctx.SendStatus(fiber.StatusNoContent)
 }
-
-func verifyPassingGrade(grade int) bool {
-	return grade >= 70
-}

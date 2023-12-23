@@ -2,7 +2,7 @@ package main
 
 import (
 	"errors"
-	"github.com/afifurrohman-id/kits-cloud-final-project/cmd/graduation"
+	"github.com/afifurrohman-id/graduation-management/cmd/graduation"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/fiber/v2/middleware/compress"

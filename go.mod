@@ -1,4 +1,4 @@
-module github.com/afifurrohman-id/kits-cloud-final-project
+module github.com/afifurrohman-id/graduation-management
 
 go 1.20
 
